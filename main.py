@@ -39,7 +39,7 @@ def generuoti_boxplot_is_failo(failo_pavadinimas):
             duomenys = []
             for eilute in failas:
                 eilute = eilute.strip()
-                if eilute:  # Praleidžiamos tuščios eilutės
+                if eilute:
                     try:
                         iteracijos, laikas = map(float, eilute.split(','))
                         duomenys.append((iteracijos, laikas))
@@ -55,12 +55,10 @@ def generuoti_boxplot_is_failo(failo_pavadinimas):
 
         fig, axes = plt.subplots(1, 2, figsize=(12, 6))
 
-        # Iteracijų palyginimas
         axes[0].boxplot(iteracijos, patch_artist=True)
         axes[0].set_title("Iteracijų paskirstymas")
         axes[0].set_ylabel("Iteracijų skaičius")
-
-        # Vykdymo laiko palyginimas
+        
         axes[1].boxplot(laikai, patch_artist=True)
         axes[1].set_title("Vykdymo laiko paskirstymas")
         axes[1].set_ylabel("Laikas (s)")
