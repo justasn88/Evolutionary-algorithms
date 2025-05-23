@@ -112,43 +112,32 @@ def generuoti_boxplot(failo_pavadinimas1, failo_pavadinimas2, failo_pavadinimas3
     iteracijos4 = [d[0] for d in duomenys4]
     laikai4 = [d[1] for d in duomenys4]
 
-    print()
+    # mMann-Whitney U testas
+    # u_statistic, p_value = stats.mannwhitneyu(iteracijos4, iteracijos3, alternative='less')
+    #
+    # alpha = 0.05
+    # if p_value < alpha:
+    #     print(
+    #         "Atmestame nulinę hipotezę. Yra statistiškai reikšmingas įrodymas, kad 200 populiacijos mediana yra mažesnė nei 100 populiacijos mediana.")
+    # else:
+    #     print(
+    #         "Nepavyko atmesti nulinės hipotezės. Nėra statistiškai reikšmingo įrodymo, kad 200 populiacijos mediana yra mažesnė nei 100 populiacijos mediana.")
+    #
+    # u_statistic, p_value = stats.mannwhitneyu(laikai4, laikai3, alternative='two-sided')
+    #
+    # if p_value < alpha:
+    #     print(
+    #         "Atmestame nulinę hipotezę. Yra statistiškai reikšmingas įrodymas, kad medianos yra skirtingos.")
+    # else:
+    #     print(
+    #         "Nepavyko atmesti nulinės hipotezės. Nėra statistiškai reikšmingo įrodymo, kad medianos yra statistiškai reikšmingai skirtingos.")
 
-    u_statistic, p_value = stats.mannwhitneyu(iteracijos4, iteracijos3, alternative='less')
-
-    print(f"Mano-Vitnio U statistika: {u_statistic}")
-    print(f"P reikšmė (vienpusis testas): {p_value}")
-
-    alpha = 0.05  #reikšmingumo lygis
-
-    if p_value < alpha:
-        print(
-            "Atmestame nulinę hipotezę. Yra statistiškai reikšmingas įrodymas, kad 200 populiacijos mediana yra mažesnė nei 100 populiacijos mediana.")
-    else:
-        print(
-            "Nepavyko atmesti nulinės hipotezės. Nėra statistiškai reikšmingo įrodymo, kad 200 populiacijos mediana yra mažesnė nei 100 populiacijos mediana.")
-
-    u_statistic, p_value = stats.mannwhitneyu(laikai4, laikai3, alternative='two-sided')
-
-    print(f"Mano-Vitnio U statistika: {u_statistic}")
-    print(f"P reikšmė (dvipusis testas): {p_value}")
-
-    if p_value < alpha:
-        print(
-            "Atmestame nulinę hipotezę. Yra statistiškai reikšmingas įrodymas, kad medianos yra skirtingos.")
-    else:
-        print(
-            "Nepavyko atmesti nulinės hipotezės. Nėra statistiškai reikšmingo įrodymo, kad medianos yra statistiškai reikšmingai skirtingos.")
-    # surasti statistini testa, naudojant scipy, kuris patikrina ar tikrai 200 pop mediana yra mazesne negu 100 pop mediana (ar 100 pop statistiskai reiksmingai didesne nei 200 pop)
-    # su laiku patikrinti ar mediana lygi
     fig, axes = plt.subplots(1, 2, figsize=(12, 6))
 
-    # Iteracijų palyginimas
     axes[0].boxplot([iteracijos1, iteracijos2, iteracijos3, iteracijos4], tick_labels=["GA 100 Populiacija", "GA 200 Populiacija", "MA 100 Populiacija", "MA 200 Populiacija"], patch_artist=True)
     axes[0].set_title("Iteracijų palyginimas")
     axes[0].set_ylabel("Iteracijų skaičius")
 
-    # Vykdymo laiko palyginimas
     axes[1].boxplot([laikai1, laikai2, laikai3, laikai4], tick_labels=["GA 100 Populiacija", "GA 200 Populiacija","MA 100 Populiacija", "MA 200 Populiacija"], patch_artist=True)
     axes[1].set_title("Vykdymo laiko palyginimas")
     axes[1].set_ylabel("Laikas (s)")
@@ -255,16 +244,6 @@ def genetic_algorithm(initial_parents, fitness_function, mutation_rate, populati
            # print("iteracija: ", i)
            break
 
-    #     real_parents = [binary_to_real(p) for p in parents]
-    #     plt.clf()
-    #     plt.plot(x, [fitness_function(val) for val in x])
-    #     plt.scatter(real_parents, [fitness_function(val) for val in real_parents])
-    #     plt.scatter(binary_to_real(best_parent), fitness_function(binary_to_real(best_parent)), marker='.', c='b', s=200)
-    #     plt.draw()
-    #     plt.pause(0.1)
-    #
-    # plt.ioff()
-    # plt.show()
     print('generation {}| best fitness {}| best_parent {} | mutation_rate {}'.format(i, best_fitness, binary_to_real(best_parent), mutation_rate))
     return best_parent, best_fitness, History, i
 
@@ -289,12 +268,9 @@ def memetic_algorithm(initial_parents, fitness_function, mutation_rate, populati
 
         History.append((i, best_fitness))
 
-        #36.5981486
         if curr_fitness >= 121.6176:
            print("iteracija: ", i)
            break
-
-        real_parents = [binary_to_real(p) for p in parents]
 
     print('generation {}| best fitness {}| best_parent {} | mutation_rate {}'.format(i, best_fitness, binary_to_real(best_parent), mutation_rate))
     return best_parent, best_fitness, History, i
