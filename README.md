@@ -3,6 +3,7 @@ This repository contains Python implementations of Genetic Algorithm (GA) and Me
 
 
 `genetic_algorithm()` - Runs the standard genetic algorithm:
+
 `memetic_algorithm()` - Runs the memetic algorithm algorithm:
 ```python
 initial_parents = [real_to_binary(np.random.uniform(-10, 10)) for _ in range(100)]
